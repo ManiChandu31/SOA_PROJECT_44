@@ -1,0 +1,10 @@
+package com.talentsync.gateway.config;
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+
+@OpenAPIDefinition(info = @Info(title = "TalentSync API Gateway", version = "1.0", description = "Gateway route documentation. Use individual service Swagger pages for full endpoint schemas."))
+@SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
+public class OpenApiConfig { }

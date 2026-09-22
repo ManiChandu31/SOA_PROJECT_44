@@ -1,0 +1,12 @@
+**/target/
+**/node_modules/
+**/dist/
+**/*.log
+**/runtime-logs/
+**/uploads/
+.env
+**/.env
+*.class
+.idea/
+*.iml
+.vscode/

@@ -1,0 +1,9 @@
+# Copy values into the Environment tab of each Spring Tool Suite Run Configuration.
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=enter-your-local-mysql-password
+EUREKA_HOST=localhost
+EUREKA_PORT=8761
+# Optional for local development; required and private in deployment environments.
+JWT_SECRET=generate-a-private-32-byte-minimum-HS256-secret
