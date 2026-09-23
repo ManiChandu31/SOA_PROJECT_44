@@ -130,10 +130,7 @@ public class JobService {
     }
 
     private void validateOwnership(Job job, Long recruiterId, String role) {
-        if ("ADMIN".equalsIgnoreCase(role)) {
-            return;
-        }
-        if (recruiterId == null || !job.getRecruiterId().equals(recruiterId)) {
+        if (!"RECRUITER".equalsIgnoreCase(role) || recruiterId == null || !job.getRecruiterId().equals(recruiterId)) {
             throw new ForbiddenException("Unauthorized: You do not have permission to modify this job posting");
         }
     }

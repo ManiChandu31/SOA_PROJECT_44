@@ -103,6 +103,42 @@ class JobServiceTests {
     }
 
     @Test
+    @DisplayName("TC-JOB-02A: Protected Job Operations Reject Missing and Invalid Tokens")
+    void testProtectedOperationsRejectMissingAndInvalidTokens() throws Exception {
+        CreateJobRequest request = buildSampleJobRequest();
+
+        mockMvc.perform(post("/api/jobs")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+
+        mockMvc.perform(post("/api/jobs")
+                        .header("Authorization", "Bearer not-a-jwt")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("TC-JOB-02B: Client Identity Headers Cannot Grant Recruiter Access")
+    void testClientIdentityHeadersCannotGrantRecruiterAccess() throws Exception {
+        CreateJobRequest request = buildSampleJobRequest();
+
+        mockMvc.perform(post("/api/jobs")
+                        .header("X-User-Id", "101")
+                        .header("X-User-Role", "RECRUITER")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+
+        mockMvc.perform(post("/api/jobs")
+                        .header("Authorization", "Bearer " + token(101, "ADMIN"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     @DisplayName("TC-JOB-03: Retrieve Active Jobs and Job By ID")
     void testGetActiveJobsAndById() throws Exception {
         Job job = new Job(
