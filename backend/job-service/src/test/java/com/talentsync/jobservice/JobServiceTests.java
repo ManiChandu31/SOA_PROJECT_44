@@ -120,6 +120,13 @@ class JobServiceTests {
     }
 
     @Test
+    @DisplayName("TC-JOB-02C: Swagger entry page is public")
+    void testSwaggerEntryPageIsPublic() throws Exception {
+        mockMvc.perform(get("/swagger-ui.html"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
     @DisplayName("TC-JOB-02B: Client Identity Headers Cannot Grant Recruiter Access")
     void testClientIdentityHeadersCannotGrantRecruiterAccess() throws Exception {
         CreateJobRequest request = buildSampleJobRequest();
