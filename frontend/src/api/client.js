@@ -14,15 +14,8 @@ client.interceptors.request.use((config) => {
 
 export const getApiErrorMessage = (error, fallback = 'Something went wrong. Please try again.') => {
   const payload = error?.response?.data;
-
-  if (typeof payload?.message === 'string' && payload.message.trim()) {
-    return payload.message;
-  }
-
-  if (typeof payload?.error === 'string' && payload.error.trim()) {
-    return payload.error;
-  }
-
+  if (typeof payload?.message === 'string' && payload.message.trim()) return payload.message;
+  if (typeof payload?.error === 'string' && payload.error.trim()) return payload.error;
   return fallback;
 };
 
